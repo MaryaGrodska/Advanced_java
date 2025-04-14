@@ -1,0 +1,157 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    background: linear-gradient(90deg, #287dc9, #4251f5, #1ba897);
+    background-size: 200% auto;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: gradientMove 4s linear infinite;
+}
+
+/* Анімація для градієнта */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Кнопки */
+button {
+    background: linear-gradient(45deg, #0e4a80, #4251f5);
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.6s ease, transform 0.2s;
+    margin-top: 10px;
+    background-size: 200% 200%;
+}
+
+/* Ефект переливу градієнтом */
+button:hover {
+    background-position: right center;
+    transform: scale(1.02);
+}
+
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+/* Таблиця */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+}
+
+/* Посилання */
+a#bitcoin-rate {
+    font-weight: bold;
+    color: #43a047;
+    font-size: 18px;
+    display: inline-block;
+    margin-top: 10px;
+}
+hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 30px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    input[type="text"] {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+
+}
+HrodskaM
+config
+AppConfig
+controller
+CryptoCurrencyController
+CurrencyController
+WebController
+dto
+CryptoCurrencyQuote
+model
+ExchangeRate
+service
+CryptoCurrencyService
+ExcelService
+HrodskaMApplication
+resources
+css
+style.css
+templates
+index.html
+application.properties
+test
+target
+.gitattributes
+.gitignore
+HELP.md
+mvnw
+mvnw.cmd
+pom.xml

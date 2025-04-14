@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HrodskaMariia Project</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1> Hrodska JavaProject</h1>
+
+<div>
+    <h2>📈 Check Bitcoin Rate</h2>
+    <button id="get-bitcoin-rate">Show Current Bitcoin Rate</button>
+   <p><a id="bitcoin-rate"></a></p>
+</div>
+
+<hr>
+
+<div>
+    <h2>🕵 Search Cryptocurrencies</h2>
+    <input type="text" id="crypto-search-query" placeholder="Enter cryptocurrency name...">
+    <button id="parse-crypto">🔎 Search</button>
+    <button id="download-excel" style="display: none; margin-top: 10px;">💾 Download Excel File</button>
+    <!-- Таблиця для результатів -->
+    <table id="crypto-table" style="display: none; margin-top: 20px; border-collapse: collapse; width: 100%;">
+        <thead>
+        <tr>
+            <th style="border: 1px solid #ccc; padding: 8px;">Currency</th>
+            <th style="border: 1px solid #ccc; padding: 8px;">Price (USD)</th>
+            <th style="border: 1px solid #ccc; padding: 8px;">Date</th>
+            <th style="border: 1px solid #ccc; padding: 8px;">Time</th>
+        </tr>
+        </thead>
+        <tbody id="crypto-items"></tbody>
+    </table>
+
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Отримати курс біткоїна
+        $('#get-bitcoin-rate').click(function() {
+            $.get('/get-bitcoin-rate', function(data) {
+                $('#bitcoin-rate').text(data);
+            });
+        });
+
+        // Пошук криптовалют за назвою
+        $('#parse-crypto').click(function () {
+            const searchQuery = $('#crypto-search-query').val();
+
+            $.get('/parse-crypto', { searchQuery: searchQuery }, function (data) {
+                const $table = $('#crypto-table');
+                const $tbody = $('#crypto-items');
+                const $downloadBtn = $('#download-excel');
+
+                $tbody.empty(); // очищаємо старі дані
+
+                if (data.length === 0) {
+                    $table.hide();
+                    $downloadBtn.hide();
+                    $tbody.append('<tr><td colspan="4">No cryptocurrencies found</td></tr>');
+                } else {
+                    data.forEach(function (item) {
+                        const formattedDate = new Date(item.timestamp).toLocaleDateString('uk-UA', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                        });
+
+                        const formattedTime = new Date(item.timestamp).toLocaleTimeString('uk-UA', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                        });
+
+                        $tbody.append(`
+                    <tr>
+                        <td style="border: 1px solid #ccc; padding: 8px;">${item.currency.toUpperCase()}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">${item.price.toFixed(2)}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">${formattedDate}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">${formattedTime}</td>
+                    </tr>
+                `);
+                    });
+
+                    $table.show();
+                    $downloadBtn.show();
+                }
+            });
+        });
+
+// Завантаження Excel
+        $('#download-excel').click(function () {
+            const searchQuery = $('#crypto-search-query').val();
+            window.location.href = '/download?name=' + encodeURIComponent(searchQuery);
+        });
+
+    });
+</script>
+</body>
+</html>
+
+
